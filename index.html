@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Karandeep Sonewane — Quant Portfolio</title>
+    <meta name="description" content="Karandeep — quant portfolio. Reproducible research, production-grade data pipelines, and ML on messy financial data." />
+
+    <meta property="og:title" content="Karandeep — Quant Portfolio" />
+    <meta property="og:description" content="Reproducible research, production-grade data pipelines, and ML on messy financial data." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://karandeepson.com" />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header class="container header">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Karandeep</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-ghost" href="https://github.com/karandeeps18" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="container hero">
+        <div class="hero-left">
+          <h1>Quant at the intersection of data, code, and math.</h1>
+          <p class="lead">
+            I build reproducible research and production-grade data pipelines, and I like turning messy datasets into clear
+            insights using statistics and machine learning. I’m happiest in teams that are research-driven and engineering-focused.
+          </p>
+
+          <div class="cta">
+            <a class="btn" href="#projects">View Projects</a>
+            <a class="btn btn-ghost" href="assets/resume.pdf" target="_blank" rel="noreferrer">Resume (PDF)</a>
+          </div>
+
+          <div class="meta">
+            <span class="pill">Python</span>
+            <span class="pill">C++</span>
+            <span class="pill">Market Data</span>
+            <span class="pill">ML</span>
+            <span class="pill">Risk / Microstructure</span>
+          </div>
+        </div>
+
+        <div class="hero-right card">
+          <h2 class="card-title">What you’ll find here</h2>
+          <ul class="list">
+            <li>Selected projects with working GitHub repos</li>
+            <li>Short write-ups with results and implementation notes</li>
+            <li>Clean, minimal presentation (no noise)</li>
+          </ul>
+          <p class="small subtle">
+            Tip: keep this site to 6–8 high-quality projects. Curate hard.
+          </p>
+        </div>
+      </section>
+
+      <section id="projects" class="container section">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <p class="subtle">Pulled from GitHub for the repos you choose.</p>
+        </div>
+
+        <div class="controls">
+          <input id="search" class="input" type="search" placeholder="Search projects…" autocomplete="off" />
+        </div>
+
+        <div id="projectsGrid" class="grid" aria-live="polite"></div>
+
+        <div id="projectsStatus" class="status subtle"></div>
+      </section>
+
+      <section id="about" class="container section">
+        <div class="section-head">
+          <h2>About</h2>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3 class="card-title">Focus</h3>
+            <ul class="list">
+              <li>Reproducible research: clean evaluation, leakage-aware workflows</li>
+              <li>Production-grade pipelines: reliable ETL, APIs, scaling patterns</li>
+              <li>Applied ML: features, modeling, validation, and communication</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">What I value</h3>
+            <ul class="list">
+              <li>Clear assumptions</li>
+              <li>Strong engineering hygiene</li>
+              <li>Results you can verify</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="container section">
+        <div class="section-head">
+          <h2>Contact</h2>
+          <p class="subtle">Best way to reach me:</p>
+        </div>
+
+        <div class="contact card">
+          <a class="contact-link" href="mailto:karandeep@karandeepson.com">karandeep@karandeepson.com</a>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+            <span class="sep">·</span>
+            <a href="https://github.com/karandeeps18" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+          <p class="small subtle">Replace the LinkedIn link with your actual profile.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <span class="small subtle">© <span id="year"></span> Karandeep</span>
+      <span class="small subtle">Built on GitHub Pages</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
