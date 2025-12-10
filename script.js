@@ -1,159 +1,107 @@
-const CONFIG = {
-  username: "karandeeps18",
-  // Pick 6–8 repos only. Replace with your strongest ones.
-  repos: [
-    "qflib",
-    "CreditRiskModel",
-    "YOUR_REPO_1",
-    "YOUR_REPO_2"
-  ],
-  cacheHours: 12
-};
+// Footer year
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-const els = {
-  grid: document.getElementById("projectsGrid"),
-  status: document.getElementById("projectsStatus"),
-  search: document.getElementById("search"),
-  year: document.getElementById("year")
-};
+// Smooth scroll for internal anchors
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", (e) => {
+    const href = anchor.getAttribute("href");
+    if (!href || href === "#") return;
 
-els.year.textContent = String(new Date().getFullYear());
+    const target = document.querySelector(href);
+    if (!target) return;
 
-function formatDate(iso) {
-  try {
-    const d = new Date(iso);
-    return d.toLocaleDateString(undefined, { year: "numeric", month: "short" });
-  } catch {
-    return "";
-  }
-}
-
-function cacheKey() {
-  return `gh_projects_${CONFIG.username}_${CONFIG.repos.join(",")}`;
-}
-
-function getCache() {
-  try {
-    const raw = localStorage.getItem(cacheKey());
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    const ageMs = Date.now() - parsed.savedAt;
-    if (ageMs > CONFIG.cacheHours * 60 * 60 * 1000) return null;
-    return parsed.data;
-  } catch {
-    return null;
-  }
-}
-
-function setCache(data) {
-  try {
-    localStorage.setItem(cacheKey(), JSON.stringify({ savedAt: Date.now(), data }));
-  } catch {}
-}
-
-async function fetchRepo(repo) {
-  const url = `https://api.github.com/repos/${CONFIG.username}/${repo}`;
-  const res = await fetch(url, {
-    headers: {
-      "Accept": "application/vnd.github+json"
-    }
+    e.preventDefault();
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
   });
-  if (!res.ok) throw new Error(`Failed: ${repo}`);
-  return res.json();
-}
+});
 
-function projectCard(r) {
-  const live = r.homepage && r.homepage.startsWith("http") ? r.homepage : null;
+// Scroll reveal animation
+const reveals = document.querySelectorAll(".reveal");
+const revealOnScroll = () => {
+  reveals.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.85) el.classList.add("active");
+  });
+};
+window.addEventListener("scroll", revealOnScroll);
+revealOnScroll();
 
-  const updated = r.pushed_at ? `Updated ${formatDate(r.pushed_at)}` : "";
-  const lang = r.language ? r.language : "—";
-  const stars = typeof r.stargazers_count === "number" ? `★ ${r.stargazers_count}` : "";
-  const forks = typeof r.forks_count === "number" ? `⑂ ${r.forks_count}` : "";
+// Animated background (canvas)
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas ? canvas.getContext("2d") : null;
 
-  const el = document.createElement("article");
-  el.className = "card project";
-  el.dataset.name = (r.name || "").toLowerCase();
-  el.dataset.desc = (r.description || "").toLowerCase();
+if (canvas && ctx) {
+  let w = window.innerWidth;
+  let h = window.innerHeight;
 
-  el.innerHTML = `
-    <div class="project-top">
-      <div>
-        <div class="project-name">${r.name || "Repo"}</div>
-        <div class="small subtle">${r.private ? "Private" : ""}</div>
-      </div>
-      <div class="project-meta">
-        ${stars ? `<span class="tag">${stars}</span>` : ""}
-        ${forks ? `<span class="tag">${forks}</span>` : ""}
-      </div>
-    </div>
+  // Retina-safe sizing
+  const resize = () => {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
 
-    <p class="project-desc">${r.description ? r.description : "No description yet. Add one in your GitHub repo."}</p>
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = `${w}px`;
+    canvas.style.height = `${h}px`;
 
-    <div class="project-meta">
-      <span class="tag">${lang}</span>
-      ${updated ? `<span class="tag">${updated}</span>` : ""}
-    </div>
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
 
-    <div class="project-links">
-      <a class="link" href="${r.html_url}" target="_blank" rel="noreferrer">GitHub</a>
-      ${live ? `<a class="link" href="${live}" target="_blank" rel="noreferrer">Live</a>` : ""}
-    </div>
-  `;
-  return el;
-}
+  resize();
+  window.addEventListener("resize", resize);
 
-function render(list) {
-  els.grid.innerHTML = "";
-  list.forEach(r => els.grid.appendChild(projectCard(r)));
-}
+  const particles = [];
+  const particleCount = 30;
 
-function applySearch() {
-  const q = (els.search.value || "").trim().toLowerCase();
-  const cards = Array.from(els.grid.querySelectorAll(".project"));
-  let shown = 0;
-
-  for (const c of cards) {
-    const hay = `${c.dataset.name} ${c.dataset.desc}`;
-    const ok = !q || hay.includes(q);
-    c.style.display = ok ? "" : "none";
-    if (ok) shown += 1;
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      radius: Math.random() * 2 + 1,
+    });
   }
 
-  els.status.textContent = q ? `${shown} project(s) match “${q}”.` : "";
+  const animate = () => {
+    ctx.clearRect(0, 0, w, h);
+
+    // Particles
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(52, 152, 219, 0.3)";
+      ctx.fill();
+    }
+
+    // Connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 150) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(52, 152, 219, ${0.15 * (1 - dist / 150)})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(animate);
+  };
+
+  animate();
 }
-
-async function main() {
-  els.status.textContent = "Loading projects…";
-
-  const cached = getCache();
-  if (cached) {
-    render(cached);
-    els.status.textContent = "";
-    applySearch();
-    return;
-  }
-
-  const repos = CONFIG.repos.filter(r => r && !r.startsWith("YOUR_REPO_"));
-  if (!repos.length) {
-    els.status.textContent = "Add your repo names in script.js (CONFIG.repos).";
-    return;
-  }
-
-  try {
-    const data = await Promise.all(repos.map(fetchRepo));
-    // Keep the same order you listed in CONFIG.repos
-    const byName = new Map(data.map(r => [r.name, r]));
-    const ordered = repos.map(name => byName.get(name)).filter(Boolean);
-
-    setCache(ordered);
-    render(ordered);
-    els.status.textContent = "";
-    applySearch();
-  } catch (e) {
-    els.status.textContent = "Could not load GitHub repos (rate limit or typo). Check repo names in script.js.";
-  }
-}
-
-els.search.addEventListener("input", applySearch);
-
-main();
