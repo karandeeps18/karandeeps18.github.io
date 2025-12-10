@@ -4,132 +4,662 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Karandeep Sonewane — Quant Portfolio</title>
-    <meta name="description" content="Karandeep — quant portfolio. Reproducible research, production-grade data pipelines, and ML on messy financial data." />
+    <title>Karandeep Sonewane — Quantitative Portfolio</title>
+    <meta name="description" content="Quantitative developer and researcher specializing in data engineering, production systems, and quantitative research." />
 
-    <meta property="og:title" content="Karandeep — Quant Portfolio" />
-    <meta property="og:description" content="Reproducible research, production-grade data pipelines, and ML on messy financial data." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://karandeepson.com" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    <link rel="stylesheet" href="styles.css" />
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        background: #fafafa;
+        color: #1a1a1a;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* Animated Background */
+      .background-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        opacity: 0.4;
+      }
+
+      .background-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 20% 50%, rgba(52, 152, 219, 0.03) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 80%, rgba(46, 134, 193, 0.03) 0%, transparent 50%);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 1;
+      }
+
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      /* Header */
+      header {
+        padding: 80px 0 60px;
+        text-align: center;
+        opacity: 0;
+        animation: fadeInDown 0.8s ease forwards;
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        font-size: 48px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        letter-spacing: -1px;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2c5282 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .subtitle {
+        font-size: 20px;
+        color: #666;
+        margin-bottom: 32px;
+      }
+
+      .header-links {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .header-links a {
+        color: #1a1a1a;
+        text-decoration: none;
+        font-size: 15px;
+        padding-bottom: 2px;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .header-links a:hover {
+        color: #3498db;
+        border-bottom-color: #3498db;
+      }
+
+      /* About Section */
+      .about {
+        max-width: 700px;
+        margin: 0 auto 80px;
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 0.8s ease 0.2s forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .about p {
+        font-size: 18px;
+        color: #4a4a4a;
+        line-height: 1.8;
+        margin-bottom: 16px;
+      }
+
+      /* Section */
+      section {
+        margin-bottom: 80px;
+      }
+
+      .section-title {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        text-align: center;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #3498db, transparent);
+      }
+
+      .section-description {
+        text-align: center;
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 48px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Projects Grid */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 32px;
+        margin-bottom: 24px;
+      }
+
+      .project-card {
+        background: #ffffff;
+        border: 1px solid #e8e8e8;
+        border-radius: 12px;
+        padding: 32px;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: fadeInUp 0.6s ease forwards;
+      }
+
+      .project-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #3498db, #2980b9);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+
+      .project-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .project-card:nth-child(1) { animation-delay: 0.1s; }
+      .project-card:nth-child(2) { animation-delay: 0.2s; }
+      .project-card:nth-child(3) { animation-delay: 0.3s; }
+      .project-card:nth-child(4) { animation-delay: 0.4s; }
+      .project-card:nth-child(5) { animation-delay: 0.5s; }
+      .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+      .project-card:hover {
+        box-shadow: 0 12px 32px rgba(52, 152, 219, 0.15);
+        transform: translateY(-6px);
+        border-color: #3498db;
+      }
+
+      .project-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: #1a1a1a;
+        transition: color 0.3s ease;
+      }
+
+      .project-card:hover .project-title {
+        color: #3498db;
+      }
+
+      .project-description {
+        font-size: 15px;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+
+      .project-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        font-size: 12px;
+        padding: 4px 10px;
+        background: #f5f5f5;
+        border-radius: 4px;
+        color: #666;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .project-card:hover .tag {
+        background: #e3f2fd;
+        color: #2980b9;
+      }
+
+      /* Contact Section */
+      .contact {
+        text-align: center;
+        padding: 60px 0;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        margin: 80px -32px 0;
+        padding-left: 32px;
+        padding-right: 32px;
+        border-top: 1px solid #e8e8e8;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #3498db, transparent);
+      }
+
+      .contact h2 {
+        font-size: 32px;
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+
+      .contact-links {
+        display: flex;
+        gap: 32px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .contact-link {
+        font-size: 16px;
+        color: #1a1a1a;
+        text-decoration: none;
+        padding-bottom: 4px;
+        border-bottom: 2px solid #3498db;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .contact-link:hover {
+        color: #3498db;
+        transform: translateY(-2px);
+      }
+
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 40px 0;
+        color: #999;
+        font-size: 14px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 36px;
+        }
+
+        .subtitle {
+          font-size: 18px;
+        }
+
+        .header-links {
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+
+        .about p {
+          font-size: 16px;
+        }
+
+        .section-title {
+          font-size: 28px;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .contact-links {
+          flex-direction: column;
+          gap: 16px;
+        }
+      }
+
+      /* Scroll reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
 
   <body>
-    <header class="container header">
-      <a class="brand" href="#top" aria-label="Home">
-        <span class="brand-dot" aria-hidden="true"></span>
-        <span>Karandeep</span>
-      </a>
+    <!-- Animated Background -->
+    <canvas class="background-canvas" id="bgCanvas"></canvas>
+    <div class="background-overlay"></div>
 
-      <nav class="nav">
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-        <a class="btn btn-ghost" href="https://github.com/karandeeps18" target="_blank" rel="noreferrer">GitHub</a>
-      </nav>
-    </header>
-
-    <main id="top">
-      <section class="container hero">
-        <div class="hero-left">
-          <h1>Quant at the intersection of data, code, and math.</h1>
-          <p class="lead">
-            I build reproducible research and production-grade data pipelines, and I like turning messy datasets into clear
-            insights using statistics and machine learning. I’m happiest in teams that are research-driven and engineering-focused.
-          </p>
-
-          <div class="cta">
-            <a class="btn" href="#projects">View Projects</a>
-            <a class="btn btn-ghost" href="assets/resume.pdf" target="_blank" rel="noreferrer">Resume (PDF)</a>
-          </div>
-
-          <div class="meta">
-            <span class="pill">Python</span>
-            <span class="pill">C++</span>
-            <span class="pill">Market Data</span>
-            <span class="pill">ML</span>
-            <span class="pill">Risk / Microstructure</span>
-          </div>
-        </div>
-
-        <div class="hero-right card">
-          <h2 class="card-title">What you’ll find here</h2>
-          <ul class="list">
-            <li>Selected projects with working GitHub repos</li>
-            <li>Short write-ups with results and implementation notes</li>
-            <li>Clean, minimal presentation (no noise)</li>
-          </ul>
-          <p class="small subtle">
-            Tip: keep this site to 6–8 high-quality projects. Curate hard.
-          </p>
-        </div>
-      </section>
-
-      <section id="projects" class="container section">
-        <div class="section-head">
-          <h2>Projects</h2>
-          <p class="subtle">Pulled from GitHub for the repos you choose.</p>
-        </div>
-
-        <div class="controls">
-          <input id="search" class="input" type="search" placeholder="Search projects…" autocomplete="off" />
-        </div>
-
-        <div id="projectsGrid" class="grid" aria-live="polite"></div>
-
-        <div id="projectsStatus" class="status subtle"></div>
-      </section>
-
-      <section id="about" class="container section">
-        <div class="section-head">
-          <h2>About</h2>
-        </div>
-
-        <div class="two-col">
-          <div class="card">
-            <h3 class="card-title">Focus</h3>
-            <ul class="list">
-              <li>Reproducible research: clean evaluation, leakage-aware workflows</li>
-              <li>Production-grade pipelines: reliable ETL, APIs, scaling patterns</li>
-              <li>Applied ML: features, modeling, validation, and communication</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3 class="card-title">What I value</h3>
-            <ul class="list">
-              <li>Clear assumptions</li>
-              <li>Strong engineering hygiene</li>
-              <li>Results you can verify</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="container section">
-        <div class="section-head">
-          <h2>Contact</h2>
-          <p class="subtle">Best way to reach me:</p>
-        </div>
-
-        <div class="contact card">
-          <a class="contact-link" href="mailto:karandeep@karandeepson.com">karandeep@karandeepson.com</a>
-          <div class="contact-links">
-            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
-            <span class="sep">·</span>
+    <div class="content-wrapper">
+      <div class="container">
+        <header>
+          <h1>Karandeep Sonewane</h1>
+          <p class="subtitle">Quantitative Developer & Researcher</p>
+          <div class="header-links">
+            <a href="#development">Development</a>
+            <a href="#research">Research</a>
+            <a href="#contact">Contact</a>
             <a href="https://github.com/karandeeps18" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="assets/resume.pdf" target="_blank" rel="noreferrer">Resume</a>
           </div>
-          <p class="small subtle">Replace the LinkedIn link with your actual profile.</p>
+        </header>
+
+        <section class="about">
+          <p>
+            I build production systems for quantitative finance—from real-time market data pipelines to options pricing models and systematic trading strategies.
+          </p>
+          <p>
+            My work spans two tracks: <strong>quantitative development</strong> (data infrastructure, production systems, and trading tools) and <strong>quantitative research</strong> (machine learning models and systematic strategies).
+          </p>
+        </section>
+
+        <!-- DEVELOPMENT -->
+        <section id="development" class="reveal">
+          <h2 class="section-title">Quantitative Development</h2>
+          <p class="section-description">
+            Market data infrastructure, production systems, and trading tools
+          </p>
+          <div class="projects-grid">
+            <div class="project-card">
+              <h3 class="project-title">Qsentia Market Data Pipeline</h3>
+              <p class="project-description">
+                Real-time market data ingestion from Polygon.io with systematic storage, normalization, and query optimization for tick-level analysis.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">PostgreSQL</span>
+                <span class="tag">Polygon API</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h3 class="project-title">Alpaca Trading Pipeline</h3>
+              <p class="project-description">
+                Production data pipeline for Alpaca API with automated data collection, validation, and storage for backtesting and live trading.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">REST API</span>
+                <span class="tag">Data Validation</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h3 class="project-title">Options Pricing Library (C++)</h3>
+              <p class="project-description">
+                High-performance quantitative finance library implementing Black-Scholes, Greeks calculation, and volatility surface modeling.
+              </p>
+              <div class="project-tags">
+                <span class="tag">C++</span>
+                <span class="tag">QuantLib</span>
+                <span class="tag">Derivatives</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h3 class="project-title">Reference Data System</h3>
+              <p class="project-description">
+                Centralized reference data management for securities, corporate actions, and market calendars with automated updates.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">SQL</span>
+                <span class="tag">ETL</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h3 class="project-title">Production Data Infrastructure</h3>
+              <p class="project-description">
+                Scalable data pipeline architecture with API management, error handling, and monitoring for systematic trading operations.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Docker</span>
+                <span class="tag">APIs</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h3 class="project-title">Execution Management System</h3>
+              <p class="project-description">
+                Order routing and execution system with real-time monitoring, risk checks, and connection management to multiple brokers.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">FIX Protocol</span>
+                <span class="tag">Real-time</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RESEARCH -->
+        <section id="research" class="reveal">
+          <h2 class="section-title">Research</h2>
+          <p class="section-description">
+            Quantitative strategies, machine learning models, and systematic trading research
+          </p>
+          <div class="projects-grid">
+            <div class="project-card">
+              <h3 class="project-title">Neural Network Options Pricing</h3>
+              <p class="project-description">
+                Deep learning approach to options pricing using feedforward networks, comparing performance against Black-Scholes with market data.
+              </p>
+              <div class="project-tags">
+                <span class="tag">PyTorch</span>
+                <span class="tag">Options</span>
+                <span class="tag">Deep Learning</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h3 class="project-title">ML-Based Pairs Trading</h3>
+              <p class="project-description">
+                Machine learning framework for pairs trading with cointegration testing, spread modeling, signal generation, and risk management.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Scikit-learn</span>
+                <span class="tag">Statistical Arbitrage</span>
+              </div>
+            </div>
+
+            <div class="project-card">
+              <h3 class="project-title">SQA Alphathon Multi-Model</h3>
+              <p class="project-description">
+                Competition entry featuring ensemble approach combining multiple alpha signals with portfolio optimization and risk constraints.
+              </p>
+              <div class="project-tags">
+                <span class="tag">Python</span>
+                <span class="tag">Factor Models</span>
+                <span class="tag">Portfolio Optimization</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- CONTACT -->
+      <section id="contact" class="contact">
+        <div class="container">
+          <h2>Let's Connect</h2>
+          <div class="contact-links">
+            <a href="mailto:karandeep@karandeepson.com" class="contact-link">Email</a>
+            <a href="https://github.com/karandeeps18" class="contact-link" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/yourprofile" class="contact-link" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="assets/resume.pdf" class="contact-link" target="_blank" rel="noreferrer">Resume</a>
+          </div>
         </div>
       </section>
-    </main>
 
-    <footer class="container footer">
-      <span class="small subtle">© <span id="year"></span> Karandeep</span>
-      <span class="small subtle">Built on GitHub Pages</span>
-    </footer>
+      <footer>
+        <div class="container">
+          <p>© <span id="year"></span> Karandeep Sonewane</p>
+        </div>
+      </footer>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href !== '#') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+      });
+
+      // Scroll reveal animation
+      const reveals = document.querySelectorAll('.reveal');
+      const revealOnScroll = () => {
+        reveals.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          const inView = rect.top < window.innerHeight * 0.85;
+          if (inView) {
+            el.classList.add('active');
+          }
+        });
+      };
+
+      window.addEventListener('scroll', revealOnScroll);
+      revealOnScroll();
+
+      // Animated background
+      const canvas = document.getElementById('bgCanvas');
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const particles = [];
+      const particleCount = 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          radius: Math.random() * 2 + 1
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(52, 152, 219, 0.3)';
+          ctx.fill();
+        });
+
+        // Draw connections
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 150) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(52, 152, 219, ${0.15 * (1 - dist / 150)})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
   </body>
 </html>
