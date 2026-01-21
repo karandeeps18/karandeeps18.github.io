@@ -11,7 +11,7 @@ body {
   color: #2d2d2d;
   background: #fdfbf7;
   -webkit-font-smoothing: antialiased;
-  padding: 40px 20px;
+  padding: 80px 20px;
 }
 
 .container {
@@ -23,28 +23,35 @@ body {
 h1 {
   font-size: 32px;
   font-weight: normal;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
   color: #2d2d2d;
 }
 
-ul {
+.nav-list {
   list-style: none;
   padding-left: 0;
+  margin-bottom: 24px;
 }
 
-ul li {
-  margin-bottom: 8px;
+.nav-list li {
+  margin-bottom: 4px;
   color: #2d2d2d;
 }
 
-ul li::before {
-  content: "* ";
-  color: #8b7ab8;
+.nav-list li::before {
+  content: "• ";
+  color: #D97757;
   margin-right: 8px;
 }
 
+.email {
+  color: #6a6a6a;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
 a {
-  color: #6b4fbb;
+  color: #D97757;
   text-decoration: none;
 }
 
@@ -67,7 +74,7 @@ header h1 a {
 }
 
 header h1 a:hover {
-  color: #6b4fbb;
+  color: #D97757;
   text-decoration: none;
 }
 
@@ -120,7 +127,7 @@ article p {
 
 .tags {
   font-size: 14px;
-  color: #8b7ab8;
+  color: #D97757;
   font-style: italic;
 }
 
@@ -131,7 +138,7 @@ footer {
 }
 
 footer a {
-  color: #6b4fbb;
+  color: #D97757;
   text-decoration: none;
   font-size: 16px;
 }
@@ -143,7 +150,7 @@ footer a:hover {
 /* Responsive */
 @media (max-width: 700px) {
   body {
-    padding: 30px 20px;
+    padding: 50px 20px;
   }
 
   h1 {
@@ -162,3 +169,60 @@ footer a:hover {
     font-size: 20px;
   }
 }
+
+/* Code block */
+
+details.code-block {
+  margin: 1rem 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.5rem;
+  background: #fafafa;
+}
+
+details.code-block summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+details.code-block pre {
+  margin-top: 0.75rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+
+.blog-figure {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.blog-image {
+  max-width: 700px;      /* controls size on desktop */
+  width: 100%;           /* responsive */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.blog-figure figcaption {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+pre {
+  background: #f7f7f7;
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 6px;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: pre; /* critical */
+}
+
+pre { white-space: pre; }
+code { white-space: pre; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
