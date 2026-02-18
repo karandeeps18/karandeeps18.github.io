@@ -226,3 +226,14 @@ code {
 
 pre { white-space: pre; }
 code { white-space: pre; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+
+.keywords {
+  color: #555;
+  font-size: 0.95rem;
+  margin: 1rem 0;
+}
+
+.keywords strong {
+  color: #222;
+}
